@@ -1,11 +1,16 @@
 var express = require("express");
+var path = require("path");
 var app = express();
 
-app.get('/', function(req, res, next) {
-    console.log(req);
-    // console.log(res);
-    // console.log(next);
-    res.send("Hello world!");
+app.set('view engine', 'ejs');
+app.use(express.static(__dirname+'/public'));
+
+app.get('/hello', function(req, res) {
+    res.render('hello', {name:req.query.nameQuery});
+});
+
+app.get('/hello/:nameParam', function(req, res) {
+    res.render('hello', {name:req.params.nameParam});
 });
 
 var port = 3000;
